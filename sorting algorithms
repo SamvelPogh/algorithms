@@ -1,0 +1,154 @@
+void bubbleSortbig(double* arr, int low, int high)
+{
+	int i, j;
+	for (i = low; i < high - 1; i++) {
+		for (j = low; j < high - i - 1; j++) {
+			if (arr[j] > arr[j + 1])
+				swap(arr[j], arr[j + 1]);
+		}
+	}
+}
+void bubbleSortmin(double arr[], int low, int high)
+{
+	int i, j;
+	for (i = low; i < high - 1; i++) {
+		for (j = low; j < high - i - 1; j++) {
+			if (arr[j] < arr[j + 1])
+				swap(arr[j], arr[j + 1]);
+		}
+	}
+}
+void bubbleSortbig(int* arr, int low, int high)
+{
+	int i, j;
+	for (i = low; i < high - 1; i++) {
+		for (j = low; j < high - i - 1; j++) {
+			if (arr[j] > arr[j + 1])
+				swap(arr[j], arr[j + 1]);
+		}
+	}
+}
+void bubbleSortmin(int* arr, int low, int high)
+{
+	int i, j;
+	for (i = low; i < high - 1; i++) {
+		for (j = low; j < high - i - 1; j++) {
+			if (arr[j] < arr[j + 1])
+				swap(arr[j], arr[j + 1]);
+		}
+	}
+}
+
+void selectionsort(int* arr, int N, int M) {
+
+	int min;
+	int minindex;
+	int minindex1 ;
+	
+	for (int i = 0; i < N ; ++i) {
+		for (int n = 0; n< M; ++n) {
+			minindex = i;
+			minindex1 = n;
+			min = *((arr + i * M) + n);
+			for (int k = i; k < N; ++k) {
+				for (int j = n; j < M; ++j) {
+					if (min > *((arr + k * M) + j)) {
+						min = *((arr + k * M) + j);
+						minindex = k;
+						minindex1= j;
+					}
+				}
+			}
+			swap(*((arr + i * M) + n), * ((arr + minindex* M) + minindex1));
+		}
+		
+	}
+
+}
+void selectionsort(double* arr, int N, int M) {
+
+	double min;
+	int minindex;
+	int minindex1;
+	double bajak;
+	for (int i = 0; i < N; ++i) {
+		for (int n = 0; n < M; ++n) {
+			minindex = i;
+			minindex1 = n;
+			min = *((arr + i * M) + n);
+			for (int k = i; k < N; ++k) {
+				for (int j = n; j < M; ++j) {
+					if (min > *((arr + k * M) + j)) {
+						min = *((arr + k * M) + j);
+						minindex = k;
+						minindex1 = j;
+					}
+				}
+			}
+			bajak = *((arr + i * M) + n);
+			*((arr + i * M) + n) = *((arr + minindex * M) + minindex1);
+			*((arr + minindex * M) + minindex1) = bajak;
+			
+		}
+
+	}
+
+}
+
+
+
+
+
+void insertionSort(int arr[], int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++)
+    {
+        key = arr[i];
+        j = i - 1;
+ 
+        /* Move elements of arr[0..i-1], that are
+        greater than key, to one position ahead
+        of their current position */
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+ 
+ 
+ void merge(int *arr, int low, int high, int mid)
+{
+    int i, j, k, c[50];
+    i = low;
+    k = low;
+    j = mid + 1;
+    while (i <= mid && j <= high) {
+        if (arr[i] < arr[j]) {
+            c[k] = arr[i];
+            k++;
+            i++;
+        }
+        else  {
+            c[k] = arr[j];
+            k++;
+            j++;
+        }
+    }
+    while (i <= mid) {
+        c[k] = arr[i];
+        k++;
+        i++;
+    }
+    while (j <= high) {
+        c[k] = arr[j];
+        k++;
+        j++;
+    }
+    for (i = low; i < k; i++)  {
+        arr[i] = c[i];
+    }
+}
