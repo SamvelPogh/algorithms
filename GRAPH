@@ -1,0 +1,129 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+	int size;//count of vertices
+	int temp, min, min_index = 0, begin, end;
+
+	//input proces count vertices
+	cout << "please enter number of vertices:";
+	cin >> size;
+	cout << endl << "enter start vertices:";
+	cin >> begin;
+	cout << endl << "enter finish vertices:";
+	cin >> end;
+	--begin;
+	--end;
+
+	int* arr_mindif = new int[size];//minimal diference betwen vertices
+	int* arr_viseted = new int[size];//viseted vertices
+
+
+		//dinamic matrix
+	int** arr = new int* [size];
+	for (int i = 0; i < size; ++i) {
+		arr[i] = new int[size];
+	}
+
+
+	//input for initialization array
+
+	/*int ar[15] = { 7,9,0,0,14,10,15,0,0,11,0,2,6,0,9 };
+	int c = 0;*/
+	/*for (int i = 0; i < size; ++i) {
+		arr[i][i] = 0;
+		for (int j = i + 1; j < size; ++j) {
+
+			temp = ar[c];
+			++c;
+			arr[i][j] = temp;
+			arr[j][i] = temp;
+		}
+	}
+	*/
+
+
+	//input diference betwen vertices
+	cout << "max dierent betwen vertices 20000";
+	for (int i = 0; i < size; ++i) {
+		arr[i][i] = 0;
+		for (int j = i + 1; j < size; ++j) {
+			cout << endl << "diferent betwen " << i + 1 << '-' << j + 1 << ':';
+			cin >> temp;
+			arr[i][j] = temp;
+			arr[j][i] = temp;
+		}
+		cout << endl;
+	}
+
+
+	//initialisation visited vertices and diference
+	for (int i = 0; i < size; ++i) {
+		arr_mindif[i] = 20000;
+		arr_viseted[i] = -1;
+	}
+	arr_mindif[begin] = 0;
+
+	//algorithm
+	while (min_index != 20001) {
+
+		min = 20001;
+		min_index = 20001;
+		for (int i = 0; i < size; ++i) {
+			if (arr_mindif[i] < min && arr_viseted[i] == -1) {
+				min = arr_mindif[i];
+				min_index = i;
+
+			}
+
+		}
+
+		if (min_index != 20001) {
+			for (int j = 0; j < size; ++j) {
+				if (arr[min_index][j] > 0 && arr[min_index][j] + min < arr_mindif[j]) {
+
+					arr_mindif[j] = arr[min_index][j] + min;
+				}
+			}
+			arr_viseted[min_index] = 1;
+
+		}
+
+	}
+
+	cout << "hell";
+	arr_viseted[0] = end;
+	int k = 1;//index back vertic
+	int heft = arr_mindif[end];
+
+	while (end != begin)
+	{
+		for (int i = 0; i < size; i++)
+			if (arr[i][end] != 0)
+			{
+				int temp = heft - arr[i][end];
+				if (temp == arr_mindif[i])
+				{
+					heft = temp;
+					end = i;
+					arr_viseted[k] = i;
+					k++;
+				}
+			}
+	}
+
+
+
+
+	//print diferent betwen vertices
+	cout << "minimal diferent:" << endl;
+	for (int i = 0; i < size; ++i) {
+		cout << arr_mindif[i] << endl;
+	}
+
+	//print way begen to end
+	cout << "way start to finish" << endl;
+	for (int i = k - 1; i >= 0; i--)
+		cout << arr_viseted[i] + 1 << ' ';
+}
